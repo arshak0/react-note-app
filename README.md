@@ -13,4 +13,4 @@
 
 Эмуляция работы с сервером происходит через setTimeout.
 
-![alt text](example.com/logo.png)
+![alt text](public/screenshots from app/Screenshot_1.png)
