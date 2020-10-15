@@ -116,8 +116,6 @@ class App extends React.Component {
   handleChangeNoteHome(changed_note_id, new_title, new_text, new_tag) {
     const { alltags } = this.state;
     let var_for_state=this.state
-    console.log(new_tag)
-    console.log(this.state.alltags)
     var_for_state.notes.map((currElement, index) => {
       if (currElement.id===changed_note_id) {
         var_for_state.notes[index].title=new_title;
