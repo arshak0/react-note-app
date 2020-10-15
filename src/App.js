@@ -114,7 +114,10 @@ class App extends React.Component {
 
   //Change of the properties of note from the <Note /> component
   handleChangeNoteHome(changed_note_id, new_title, new_text, new_tag) {
+    const { alltags } = this.state;
     let var_for_state=this.state
+    console.log(new_tag)
+    console.log(this.state.alltags)
     var_for_state.notes.map((currElement, index) => {
       if (currElement.id===changed_note_id) {
         var_for_state.notes[index].title=new_title;
@@ -127,10 +130,30 @@ class App extends React.Component {
       notes: var_for_state.notes
     });
 
-    if ( this.state.pinned_note[0] === changed_note_id ) {
+    if ( this.state.notes[this.state.notes.length-1].tag!=="" ) {
       this.setState({
-        pinned_note: [ this.state.pinned_note[0], new_title, new_text, new_tag ]
-      })
+        alltags: [
+          ...alltags,
+          this.state.notes[this.state.notes.length-1].tag ],
+      });
+    }
+
+    let var_for_alltags=this.state.alltags;
+    var_for_alltags.forEach(function(item, index) {
+      if ( item==="" || item===undefined ) {
+        var_for_alltags.splice(index,1);
+      }
+    });
+    this.setState({
+      alltags: var_for_alltags
+    });
+
+    if (this.state.pinned_note) {
+      if ( this.state.pinned_note[0] === changed_note_id ) {
+        this.setState({
+          pinned_note: [ this.state.pinned_note[0], new_title, new_text, new_tag ]
+        })
+      }
     }
   }
   //--End--Change of the properties of note from the <Note /> component
@@ -149,9 +172,10 @@ class App extends React.Component {
       alltags: this.state.alltags,
       tags_filter: this.state.tags_filter
     });
-
-    if ( this.state.pinned_note[0]===remove_note ) {
-      this.handleUnpin();
+    if (this.state.pinned_note) {
+      if ( this.state.pinned_note[0]===remove_note ) {
+        this.handleUnpin();
+      }
     }
   }
   //--End--Remove of note from the <Note /> component
